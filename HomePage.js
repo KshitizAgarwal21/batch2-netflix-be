@@ -24,10 +24,8 @@ router.get("/topMovies", async (req, res) => {
     const getTopMovies = await TopMovies.findOne({});
     const movieObj = JSON.stringify(getTopMovies);
     const movieObjparse = JSON.parse(movieObj);
-    console.log(movieObjparse.topMovies.results);
-    if (movieObjparse.topMovies) {
-      console.log("test");
 
+    if (movieObjparse.topMovies) {
       res.status(200).send(movieObjparse.topMovies.results);
     }
   } catch (e) {
@@ -39,10 +37,8 @@ router.get("/popularMovies", async (req, res) => {
     const getTopMovies = await TopMovies.findOne({});
     const movieObj = JSON.stringify(getTopMovies);
     const movieObjparse = JSON.parse(movieObj);
-    console.log(movieObjparse);
-    if (movieObjparse.popularMovies) {
-      console.log("test");
 
+    if (movieObjparse.popularMovies) {
       res.status(200).send(movieObjparse.popularMovies.results);
     }
   } catch (e) {
@@ -54,10 +50,8 @@ router.get("/nowPlaying", async (req, res) => {
     const getTopMovies = await TopMovies.findOne({});
     const movieObj = JSON.stringify(getTopMovies);
     const movieObjparse = JSON.parse(movieObj);
-    console.log(movieObjparse);
-    if (movieObjparse.nowPlaying) {
-      console.log("test");
 
+    if (movieObjparse.nowPlaying) {
       res.status(200).send(movieObjparse.nowPlaying.results);
     }
   } catch (e) {

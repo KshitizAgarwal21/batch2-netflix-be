@@ -115,7 +115,22 @@ const schema3 = mongoose.Schema({
   },
 });
 
+const schema4 = mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
+  itemId: {
+    type: Array,
+  },
+
+  //series -> season # && episode # && duartion watched
+
+  //movies -> duration watched
+});
+
 const HeroMovie = mongoose.model("heromovie", schema);
 const TopMovies = mongoose.model("topmovie", schema2);
+const CurrentlyWatching = mongoose.model("currentlyWatching", schema4);
 // const MovieDetails = mongoose.model("moviedetail", schema3);
-module.exports = { HeroMovie, TopMovies };
+module.exports = { HeroMovie, TopMovies, CurrentlyWatching };
