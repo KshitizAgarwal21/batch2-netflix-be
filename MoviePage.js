@@ -15,29 +15,45 @@ router.post("/getMovie", async (req, res) => {
 
   const item_ids = fres.data.itemId.filter((elem) => elem.id == req.body.id);
 
-  const duration = item_ids[0].duration;
+  if (item_ids.length > 0) {
+    const duration = item_ids[0].duration;
+    const result = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.body.id}/videos?language=en-US`,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlM2JmMzY2NDAwNmY2YzBhMWY0MWNkNWRmYzdlNTgxYSIsInN1YiI6IjY0ZDNhOGYwZGQ5MjZhMDFlYTlkMzhmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F2M3pNrTSw2w6k8Idhwnd2Chnoojm97Or3WcLck5EkA",
+        },
+      }
+    );
+    const finalObj = result.data.results.filter(
+      (elem) => elem.type == "Trailer" && elem.official
+    )[0];
+
+    finalObj.duration = duration;
+
+    res.status(200).send(finalObj);
+  } else {
+    const result = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.body.id}/videos?language=en-US`,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlM2JmMzY2NDAwNmY2YzBhMWY0MWNkNWRmYzdlNTgxYSIsInN1YiI6IjY0ZDNhOGYwZGQ5MjZhMDFlYTlkMzhmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F2M3pNrTSw2w6k8Idhwnd2Chnoojm97Or3WcLck5EkA",
+        },
+      }
+    );
+    const finalObj = result.data.results.filter(
+      (elem) => elem.type == "Trailer" && elem.official
+    )[0];
+
+    res.status(200).send(finalObj);
+  }
 
   //else
   //directly proceed with below
-
-  const result = await axios.get(
-    `https://api.themoviedb.org/3/movie/${req.body.id}/videos?language=en-US`,
-    {
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlM2JmMzY2NDAwNmY2YzBhMWY0MWNkNWRmYzdlNTgxYSIsInN1YiI6IjY0ZDNhOGYwZGQ5MjZhMDFlYTlkMzhmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F2M3pNrTSw2w6k8Idhwnd2Chnoojm97Or3WcLck5EkA",
-      },
-    }
-  );
-  const finalObj = result.data.results.filter(
-    (elem) => elem.type == "Trailer" && elem.official
-  )[0];
-
-  finalObj.duration = duration;
-
-  console.log(finalObj);
-  res.status(200).send(finalObj);
 });
 
 module.exports = router;

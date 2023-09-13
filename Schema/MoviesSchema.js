@@ -128,7 +128,21 @@ const schema4 = mongoose.Schema({
 
   //movies -> duration watched
 });
-
+const schema5 = mongoose.Schema({
+  iso_639_1: { type: String, required: true },
+  iso_3166_1: { type: String, required: true },
+  name: { type: String, required: true },
+  key: { type: String, required: true },
+  published_at: { type: String, required: true },
+  site: { type: String, required: true },
+  size: { type: Number, required: true },
+  type: { type: String, required: true },
+  official: { type: Boolean, required: true },
+  id: { type: String, required: true },
+  duration: { type: String, required: true },
+  flag: { type: String, required: true },
+  tvshowarr: { type: Array },
+});
 const HeroMovie = mongoose.model("heromovie", schema);
 const TopMovies = mongoose.model("topmovie", schema2);
 const CurrentlyWatching = mongoose.model("currentlyWatching", schema4);
